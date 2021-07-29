@@ -12,8 +12,8 @@ public class Convertator {
 		int slotFrom = (int) (timeframe.getFrom().toEpochSecond(ZoneOffset.UTC)/slotSize-firstSlot);
 		int slotTo = (int) ((timeframe.getTo().toEpochSecond(ZoneOffset.UTC)-1)/slotSize-firstSlot);
 		int slotNumber = slotTo - slotFrom + 1;
-		System.out.println(slotFrom);
-		System.out.println(slotTo);
+//		System.out.println(slotFrom);
+//		System.out.println(slotTo);
 		return new int[] {slotFrom,slotTo,slotNumber};
 	}
 }

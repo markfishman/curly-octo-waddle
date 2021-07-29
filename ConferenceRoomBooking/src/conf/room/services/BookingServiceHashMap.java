@@ -1,10 +1,10 @@
 package conf.room.services;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BookingServiceHashMap implements BookingService {
 
-	private static HashMap<Integer,Long> map = new HashMap<>();
+	private static ConcurrentHashMap<Integer, Long> map = new ConcurrentHashMap<Integer,Long>();
 	private static int basketSize = 128;
 	
 	@Override
