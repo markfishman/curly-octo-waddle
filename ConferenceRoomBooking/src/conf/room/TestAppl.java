@@ -4,13 +4,16 @@ import java.time.LocalDateTime;
 
 import conf.room.services.BookingService;
 import conf.room.services.BookingServiceBinaryArray;
+import conf.room.services.BookingServiceHashMap;
+import conf.room.services.BookingServiceTreeMap;
 import conf.room.services.Convertator;
 
 public class TestAppl {
 
 	public static void main(String[] args) {
+		BookingService bookingService = new BookingServiceHashMap();
 		//BookingService bookingService = new BookingServiceTreeMap();
-		BookingService bookingService = new BookingServiceBinaryArray();
+		//BookingService bookingService = new BookingServiceBinaryArray();
 		LocalDateTime from = LocalDateTime.parse("2021-01-01T14:10:10");
 		LocalDateTime to = LocalDateTime.parse("2021-01-01T14:20:11");
 		int[] timeframeInt = Convertator.convertToInt(new Timeframe(from, to));
