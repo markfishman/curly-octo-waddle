@@ -1,4 +1,4 @@
-package conf.room;
+package conf.room.services;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -10,22 +10,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookingServiceTreeMap implements BookingService{
 
-	final static long slotSize = 600;
-	private static TreeMap<Long,Long> map = new TreeMap<>();
+	private static TreeMap<Integer,Integer> map = new TreeMap<>();
 	
-	public synchronized boolean booking(LocalDateTime from, LocalDateTime to) {
-		System.out.println(from);
-		System.out.println(to);
-		long slotFrom = from.toEpochSecond(ZoneOffset.UTC)/slotSize;
-		long slotTo = (to.toEpochSecond(ZoneOffset.UTC)-1)/slotSize;
-		long slotNumber = slotTo - slotFrom + 1;
-		System.out.println(slotFrom);
-		System.out.println(slotTo);
-		System.out.println(slotNumber);
+	public synchronized boolean booking(int slotFrom, int slotTo) {
+		int slotNumber = slotTo - slotFrom + 1;
+//		System.out.println(slotFrom);
+//		System.out.println(slotTo);
+//		System.out.println(slotNumber);
 		if (slotNumber <=0 ) return false;
-		Entry<Long, Long> entryNextSlot = map.ceilingEntry(slotFrom);
+		Entry<Integer, Integer> entryNextSlot = map.ceilingEntry(slotFrom);
 		if(entryNextSlot!=null && entryNextSlot.getKey()<slotFrom+slotNumber) return false;
-		Entry<Long, Long> entryPrevSlot = map.lowerEntry(slotFrom);
+		Entry<Integer, Integer> entryPrevSlot = map.lowerEntry(slotFrom);
 		if(entryPrevSlot!=null && slotFrom<entryPrevSlot.getKey()+entryPrevSlot.getValue()) return false;
 		map.put(slotFrom, slotNumber);
 		saveState(slotFrom, slotNumber);
